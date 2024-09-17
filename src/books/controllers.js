@@ -1,5 +1,5 @@
 const Book = require ("./model");
-
+const allBooks = require("./model");
 
 
 
@@ -22,6 +22,16 @@ const addBook = async (req,res) => {
     }
 };
 
+    const allbooks = async (req,res) => {
+        try {
+            const books = await Book.findAll();
+            res.status(201).json({message: "success", books: books});
+        } catch (error) {
+            res.status(500).json({message: error.message, error: error });
+        }
+};
+
 module.exports = {
-    addBook: addBook,
+    addBook,
+    allbooks,
 };
