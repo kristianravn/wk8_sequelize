@@ -20,7 +20,7 @@ const addBook = async (req,res) => {
 };
 
 
-    const allBooks = async (req,res) => {
+    const getallBooks = async (req,res) => {
         try {
             const books = await Book.findAll();
             res.status(200).json({message: "success", books: books});
@@ -50,19 +50,51 @@ const deleteOneBook = async (req,res) => {
 
 const updateBookByAuthor = async (req,res) => {
     try{
-        const Book = await Book.update({
-            where: {author: req.body.author}
+        const updated = await Book.update({
+            author: req.body.author,
             
-    });
-        res.status(200).json({message: "success", book: book});
-    } catch (error) {
+        },
+        {
+            where: {title: req.body.title}
+        }
+);
+
+   res.status(201).json({message: "success", updatedBook: updated});
+
+ } catch (error) {
         res.status(500).json({message: error.message, error: error});
     }
 };
 
+const getBookByAuthor = async (req,res) => {
+try{
+   const bookbyauthor = await Book.findOne({
+    title: req.body.title,
+   },
+   {
+    where: {author: req.body.author}
+   }
+   );
+
+   res.status(201).json({message: "success", foundbookbyauthor: bookbyauthor});
+
+ } catch (error) {
+        res.status(500).json({message: error.message, error: error});
+    }
+};
+
+
+
+
+
+
+
+
 module.exports = {
     addBook,
-    allBooks,
+    getallBooks,
     deleteOneBook,
-    updateBookByAuthor
+    updateBookByAuthor,
+    getBookByAuthor
+   
 };
