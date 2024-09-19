@@ -5,7 +5,7 @@ const  Book  = require ("./model");
 
 const addBook = async (req,res) => {
     try {
-        // try the thing
+       
         const book = await Book.create({
             title: req.body.title,
             author: req.body.author,
@@ -66,23 +66,17 @@ const updateBookByAuthor = async (req,res) => {
     }
 };
 
-const getBookByAuthor = async (req,res) => {
-try{
-   const bookbyauthor = await Book.findOne({
-    title: req.body.title,
-   },
-   {
-    where: {author: req.body.author}
-   }
-   );
 
-   res.status(201).json({message: "success", foundbookbyauthor: bookbyauthor});
+// getbookbyauthor
 
- } catch (error) {
-        res.status(500).json({message: error.message, error: error});
+const getBookByAuthor = async (req, res) => {
+    try {
+       const book = await Book.findOne({where: {author: req.params.author} });
+       res.status(200).json({message: "success", book: book});
+    } catch (error) {
+        res.status(500).json({message: error.message, error: error}); 
     }
-};
-
+}
 
 
 
@@ -91,10 +85,11 @@ try{
 
 
 module.exports = {
-    addBook,
-    getallBooks,
-    deleteOneBook,
-    updateBookByAuthor,
-    getBookByAuthor
+    addBook: addBook,
+    getallBooks:getallBooks,
+    deleteOneBook: deleteOneBook,
+    updateBookByAuthor:updateBookByAuthor,
+    getBookByAuthor:getBookByAuthor,
+   
    
 };
