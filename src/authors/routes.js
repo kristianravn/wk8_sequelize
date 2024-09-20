@@ -7,7 +7,7 @@ const { addAuthor,getallAuthors} = require("./controllers");
 
 
 
-authorRouter.post("/authors/addAuthor", addAuthor);
+authorRouter.post("/author/addAuthor", addAuthor);
 authorRouter.get("/authors/getallAuthors/:name", getallAuthors);
 
 
