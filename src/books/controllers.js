@@ -8,8 +8,9 @@ const addBook = async (req,res) => {
        
         const book = await Book.create({
             title: req.body.title,
-            author: req.body.author,
-            genre: req.body.genre,
+            authorname: req.body.authorname,
+            genrename: req.body.genrename,
+            authorId: req.body.authorId,
         });
 
         res.status(200).json({message: "success", book: book});
@@ -77,12 +78,6 @@ const getBookByAuthor = async (req, res) => {
         res.status(500).json({message: error.message, error: error}); 
     }
 }
-
-
-
-
-
-
 
 module.exports = {
     addBook: addBook,
